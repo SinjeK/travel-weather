@@ -1,9 +1,11 @@
 <template>
   <div class="container">
+    <!-- TODO: Accessibility and Responsiveness -->
     <div class="left-side">
       <h1 class="text">Hi!</h1>
       <p class="text">So you can't decide where to travel next? Why not compare what the weather was like last year?</p>
       <!-- TODO: allow selection of cities -->
+      <CitySelector @updated-selection="handleUpdatedSelection"/>
       <!-- TODO: allow selection of dates -->
     </div>
     <div class="right-side">
@@ -14,27 +16,31 @@
 
 <script setup lang="ts">
 import CityCard from "./components/CityCard.vue";
+import CitySelector from "./components/CitySelector.vue";
 import type {TravelLocation} from "./interfaces/TravelLocation.ts";
+import {type Ref, ref, toRaw} from "vue";
 
-const travelLocationList: TravelLocation[] = [
-  {
-    name: 'Seville',
-    lat: 37.39,
-    lng: -5.99
-  },
-  {
-    name: 'Rome',
-    lat: 41.90,
-    lng: 12.49
-  },
-  {
-    name: 'Athens',
-    lat: 37.98,
-    lng: 23.72
-  }]
+let travelLocationList: Ref<TravelLocation[]> = ref([])
+
+function handleUpdatedSelection(state: Ref<TravelLocation[]>) {
+  const rawState = toRaw(state);
+  const newLocations: TravelLocation[] = [];
+
+  if (!Array.isArray(rawState)) {
+    console.log('Emit is not an array.');
+    return
+  }
+  for (const location of rawState) {
+    const rawLocation = toRaw(location);
+    newLocations.push(rawLocation);
+  }
+  travelLocationList.value = newLocations
+}
+
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   margin: 25px;
   width: 750px;
@@ -55,5 +61,13 @@ const travelLocationList: TravelLocation[] = [
 .text {
   margin: 10px;
   text-align: left;
+}
+
+// TODO: replace
+.p-multiselect {
+  border: 1px solid #535bf2;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px;
 }
 </style>

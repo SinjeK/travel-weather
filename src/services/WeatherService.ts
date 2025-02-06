@@ -15,8 +15,8 @@ export async function getWeatherForLocation(location: TravelLocation) : Promise<
             "longitude": location.lng,
             "daily": "temperature_2m_max",
             "timezone": "Europe/Berlin",
-            "start_date": "2025-01-06",
-            "end_date": "2025-01-12"
+            "start_date": "2025-01-01",
+            "end_date": "2025-01-07"
         };
         const responses = await fetchWeatherApi(URL, params);
 
@@ -44,6 +44,7 @@ export async function getWeatherForLocation(location: TravelLocation) : Promise<
                 time: weatherData.daily.time[i].toISOString(),
                 temperature: weatherData.daily.temperature2mMax[i]
             }
+
             results.push(res)
         }
 
