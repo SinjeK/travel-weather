@@ -4,7 +4,7 @@
       {{ city.name }}
     </div>
     <div class="city-card__body">
-      <div class="city-card__flex-item" v-for="item in weatherData">
+      <div class="city-card__flex-item" v-for="item in weatherData" :key="item.time">
         <div class="city-card__date">{{ formatDate(item.time) }}</div>
         <div class="city-card__temp">{{ formatTemperature(item.temperature) }}</div>
       </div>
@@ -34,14 +34,17 @@ watch( () => props, async () => {
     },{ deep: true }
 )
 
-function formatDate(dateString: string) {
+const formatDate = (dateString: string) => {
   const date = dateString.split('T')[0]
   const dateSections = date.split('-')
   const generatedDate = new Date(Number(dateSections[0]), Number(dateSections[1]) - 1, Number(dateSections[2]))
   return Intl.DateTimeFormat('de-DE').format(generatedDate)
 }
 
-function formatTemperature(temp: number) {
+const formatTemperature = (temp: number) => {
+  if (Number.isNaN(temp)) {
+    return 'k.A.'
+  }
   return `${Number(temp).toFixed(1)} °C`
 }
 </script>
@@ -49,9 +52,10 @@ function formatTemperature(temp: number) {
 <style scoped lang="scss">
 .city-card {
   margin: 10px;
-  border: 1px solid #535bf2;
-  border-radius: 5px;
+  // border: 1px solid #535bf2;
+  // border-radius: 5px;
   padding: 3px;
+  width: fit-content;
 
   &__header {
     font-weight: bold;

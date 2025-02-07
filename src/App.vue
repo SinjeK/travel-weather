@@ -1,30 +1,32 @@
 <template>
   <div class="container">
-    <!-- TODO: Accessibility and Responsiveness -->
+    <!-- TODO: Accessibility -->
     <div class="left-side">
       <h1 class="text">Hi!</h1>
-      <p class="text">So you can't decide where to travel next? Why not compare what the weather was like last year?</p>
-      <CitySelector @updated-selection="handleUpdatedCities"/>
+      <p class="text">So you can't decide where to travel next? Why not check what the weather was like last year?</p>
       <DateSelector @updated-dates="handleUpdatedDates"/>
+      <CitySelector @updated-selection="handleUpdatedCities"/>
     </div>
     <div class="right-side">
-      <city-card v-for="location in travelLocationList" :city="location" :start-date="startDate" :end-date="endDate"></city-card>
+      <city-card v-for="location in travelLocationList" :key="location.name" :city="location" :start-date="startDate" :end-date="endDate"></city-card>
     </div>
   </div>
+  <footer-component />
 </template>
 
 <script setup lang="ts">
-import type {TravelLocation} from "./interfaces/TravelLocation.ts";
-import {type Ref, ref, toRaw} from "vue";
+import type { TravelLocation } from "./interfaces/TravelLocation.ts";
+import { type Ref, ref, toRaw } from "vue";
 import CityCard from "./components/CityCard.vue";
 import CitySelector from "./components/CitySelector.vue";
 import DateSelector from "./components/DateSelector.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 
-let travelLocationList: Ref<TravelLocation[]> = ref([])
-let startDate: Ref<string> = ref('')
-let endDate: Ref<string> = ref('')
+const travelLocationList: Ref<TravelLocation[]> = ref([])
+const startDate: Ref<string> = ref('')
+const endDate: Ref<string> = ref('')
 
-function handleUpdatedCities(state: Ref<TravelLocation[]>) {
+const handleUpdatedCities = (state: Ref<TravelLocation[]>) => {
   const selectedLocations = toRaw(state);
   const newLocations: TravelLocation[] = [];
 
@@ -40,7 +42,7 @@ function handleUpdatedCities(state: Ref<TravelLocation[]>) {
   travelLocationList.value = newLocations
 }
 
-function handleUpdatedDates(dateRange: string[]) {
+const handleUpdatedDates = (dateRange: string[]) => {
   startDate.value = dateRange[0]
   endDate.value = dateRange[1]
 }
@@ -49,30 +51,46 @@ function handleUpdatedDates(dateRange: string[]) {
 <style scoped lang="scss">
 .container {
   margin: 25px;
-  width: 750px;
+  width: 100%;
   display: flex;
+  flex-direction: row;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 .left-side {
-  height: 50vh;
+  height: 70vh;
   width: 30%;
   border-right: 2px solid #535bf2;
+  padding: 10px;
+
+  @media only screen and (max-width: 600px) {
+    height: fit-content;
+    width: 90%;
+    border-bottom: 2px solid #535bf2;
+    border-right: none;
+  }
 }
 
 .right-side {
-  height: 50vh;
+  height: fit-content;
   width: 70%;
+  overflow-y: scroll;
+
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+    height: fit-content;
+  }
 }
 
 .text {
-  margin: 10px;
+  margin-bottom: 10px;
   text-align: left;
 }
 
 .p-multiselect {
-  border: 1px solid #535bf2;
-  border-radius: 5px;
-  margin: 2px;
-  padding: 5px;
+  margin-top: 5px;
 }
 </style>

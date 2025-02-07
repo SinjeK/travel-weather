@@ -4,16 +4,16 @@
       display="chip"
       :options="cities"
       optionLabel="name"
-      placeholder="Select Cities"
+      placeholder="Select cities"
       :maxSelectedLabels="3"
       class="city-multiselect w-full md:w-20rem"
   />
 </template>
 
 <script setup lang="ts">
-import type {TravelLocation} from "../interfaces/TravelLocation.ts";
+import type { TravelLocation } from "../interfaces/TravelLocation.ts";
 import MultiSelect from "primevue/multiselect";
-import {ref, type Ref, watch} from "vue";
+import { ref, type Ref, watch } from "vue";
 
 // TODO: find an API for this instead of hardcoding the list
 const cities: TravelLocation[] = [
@@ -56,9 +56,9 @@ const cities: TravelLocation[] = [
     name: 'Athens',
     lat: 37.98,
     lng: 23.72
-  }]
+  } ]
 const selectedCities: Ref<TravelLocation[]> = ref([])
-const emit = defineEmits(['updatedSelection'])
+const emit = defineEmits([ 'updatedSelection' ])
 
 watch(selectedCities, async (newSelection) => {
   emit('updatedSelection', newSelection)
@@ -67,6 +67,6 @@ watch(selectedCities, async (newSelection) => {
 
 <style scoped lang="scss">
 .city-multiselect {
-  width: 95%;
+  width: 100%;
 }
 </style>

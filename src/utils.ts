@@ -1,4 +1,4 @@
-export function isValidDateRange(startDate: Date, endDate: Date) {
+export const isValidDateRange = (startDate: Date, endDate: Date) => {
     if (startDate.getFullYear() > endDate.getFullYear()) {
         return false
     } else if (startDate.getFullYear() < endDate.getFullYear()) {
