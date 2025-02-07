@@ -14,11 +14,8 @@
 import type {TravelLocation} from "../interfaces/TravelLocation.ts";
 import MultiSelect from "primevue/multiselect";
 import {ref, type Ref, watch} from "vue";
-//  TODO: try to recreate this multiselect with HTML
 
-const selectedCities: Ref<TravelLocation[]> = ref([])
-
-// TODO: ideally find an API for this instead of hardcoding the list
+// TODO: find an API for this instead of hardcoding the list
 const cities: TravelLocation[] = [
     {
     name: 'Seville',
@@ -60,11 +57,11 @@ const cities: TravelLocation[] = [
     lat: 37.98,
     lng: 23.72
   }]
-
+const selectedCities: Ref<TravelLocation[]> = ref([])
 const emit = defineEmits(['updatedSelection'])
 
 watch(selectedCities, async (newSelection) => {
-  emit('updatedSelection', newSelection);
+  emit('updatedSelection', newSelection)
 })
 </script>
 
@@ -72,5 +69,4 @@ watch(selectedCities, async (newSelection) => {
 .city-multiselect {
   width: 95%;
 }
-
 </style>

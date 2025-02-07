@@ -14,8 +14,18 @@
   --p-multiselect-overlay-background: white;
   --p-multiselect-overlay-border-color: #535bf2;
   --p-multiselect-overlay-border-radius: 5px;
+
   --p-multiselect-option-gap: 5px;
   --p-checkbox-border-radius: 2px;
+
+  --p-inputtext-color: black;
+  --p-inputtext-background: white;
+  --p-inputtext-border-color: #535bf2;
+  --p-inputtext-border-radius: 5px;
+
+  --p-datepicker-panel-border-color: #535bf2;
+  --p-datepicker-panel-border-radius: 5px;
+  --p-datepicker-panel-background: white;
 
 
 }

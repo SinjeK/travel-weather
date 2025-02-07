@@ -13,20 +13,26 @@
 </template>
 
 <script setup lang="ts">
-import type {TravelLocation} from "../interfaces/TravelLocation.ts";
+import type { TravelLocation } from "../interfaces/TravelLocation.ts";
 import { getWeatherForLocation } from "../services/WeatherService.ts";
-import type {WeatherResponse} from "../interfaces/WeatherResponse.ts";
-import {onMounted, type Ref, ref} from "vue";
+import type { WeatherResponse } from "../interfaces/WeatherResponse.ts";
+import { onMounted, type Ref, ref, watch } from "vue";
 
 const props = defineProps<{
   city: TravelLocation,
+  startDate: string,
+  endDate: string
 }>()
 
 const weatherData: Ref<WeatherResponse[]> = ref([])
 onMounted(async () => {
-  const data = await getWeatherForLocation(props.city)
-  weatherData.value.push(...data)
+  weatherData.value = await getWeatherForLocation(props.city, props.startDate, props.endDate);
 })
+
+watch( () => props, async () => {
+      weatherData.value = await getWeatherForLocation(props.city, props.startDate, props.endDate);
+    },{ deep: true }
+)
 
 function formatDate(dateString: string) {
   const date = dateString.split('T')[0]
@@ -43,6 +49,9 @@ function formatTemperature(temp: number) {
 <style scoped lang="scss">
 .city-card {
   margin: 10px;
+  border: 1px solid #535bf2;
+  border-radius: 5px;
+  padding: 3px;
 
   &__header {
     font-weight: bold;

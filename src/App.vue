@@ -4,40 +4,46 @@
     <div class="left-side">
       <h1 class="text">Hi!</h1>
       <p class="text">So you can't decide where to travel next? Why not compare what the weather was like last year?</p>
-      <!-- TODO: allow selection of cities -->
-      <CitySelector @updated-selection="handleUpdatedSelection"/>
-      <!-- TODO: allow selection of dates -->
+      <CitySelector @updated-selection="handleUpdatedCities"/>
+      <DateSelector @updated-dates="handleUpdatedDates"/>
     </div>
     <div class="right-side">
-      <city-card v-for="location in travelLocationList" :city="location"></city-card>
+      <city-card v-for="location in travelLocationList" :city="location" :start-date="startDate" :end-date="endDate"></city-card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import CityCard from "./components/CityCard.vue";
-import CitySelector from "./components/CitySelector.vue";
 import type {TravelLocation} from "./interfaces/TravelLocation.ts";
 import {type Ref, ref, toRaw} from "vue";
+import CityCard from "./components/CityCard.vue";
+import CitySelector from "./components/CitySelector.vue";
+import DateSelector from "./components/DateSelector.vue";
 
 let travelLocationList: Ref<TravelLocation[]> = ref([])
+let startDate: Ref<string> = ref('')
+let endDate: Ref<string> = ref('')
 
-function handleUpdatedSelection(state: Ref<TravelLocation[]>) {
-  const rawState = toRaw(state);
+function handleUpdatedCities(state: Ref<TravelLocation[]>) {
+  const selectedLocations = toRaw(state);
   const newLocations: TravelLocation[] = [];
 
-  if (!Array.isArray(rawState)) {
+  if (!Array.isArray(selectedLocations)) {
     console.log('Emit is not an array.');
     return
   }
-  for (const location of rawState) {
+
+  for (const location of selectedLocations) {
     const rawLocation = toRaw(location);
     newLocations.push(rawLocation);
   }
   travelLocationList.value = newLocations
 }
 
-
+function handleUpdatedDates(dateRange: string[]) {
+  startDate.value = dateRange[0]
+  endDate.value = dateRange[1]
+}
 </script>
 
 <style scoped lang="scss">
@@ -63,7 +69,6 @@ function handleUpdatedSelection(state: Ref<TravelLocation[]>) {
   text-align: left;
 }
 
-// TODO: replace
 .p-multiselect {
   border: 1px solid #535bf2;
   border-radius: 5px;
