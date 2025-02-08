@@ -67,6 +67,7 @@ watch(selectedCities, async (newSelection) => {
 
 <style scoped lang="scss">
 .city-multiselect {
+  margin-bottom: 20px;
   width: 100%;
 }
 </style>

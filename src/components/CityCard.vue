@@ -51,11 +51,9 @@ const formatTemperature = (temp: number) => {
 
 <style scoped lang="scss">
 .city-card {
-  margin: 10px;
-  // border: 1px solid #535bf2;
-  // border-radius: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
   padding: 3px;
-  width: fit-content;
 
   &__header {
     font-weight: bold;
@@ -70,8 +68,8 @@ const formatTemperature = (temp: number) => {
 
   &__flex-item {
     flex-basis: fit-content;
-    width: fit-content;
     margin: 5px;
+    width: fit-content;
   }
 
   &__date {
@@ -81,6 +79,7 @@ const formatTemperature = (temp: number) => {
 
   &__temp {
     font-size: 14px;
+    word-break: keep-all;
   }
 }
 </style>

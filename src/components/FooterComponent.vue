@@ -1,12 +1,12 @@
 <template>
   <div class="footer">
-    <div class="footer-item">Credit goes to <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a></div>
+    <div class="footer-item">Created using <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a></div>
     <div class="footer-item" @click="openImprint">Imprint</div>
   </div>
   <Drawer v-model:visible="visible" header="Imprint" class="footer-drawer">
-    <p>
-      TODO
-    </p>
+    <div>Maria Mustermann</div>
+    <div>Musterstr. 123</div>
+    <div>45678 Musterstadt</div>
   </Drawer>
 </template>
 
@@ -24,20 +24,19 @@ const openImprint = () => {
 .footer {
   display: flex;
   flex-direction: row;
-  width: 100vw;
   justify-content: center;
+  margin-left: 10vw;
 }
 
 .footer-item {
-  align-items: center;
   color: black;
+  font-size: 10px;
   margin-left: 10px;
   margin-right: 10px;
   margin-top: auto;
-  font-size: 10px;
 
   a {
-    color: #535bf2;
+    color: #537e72;
     font-weight: bold;
   }
 }

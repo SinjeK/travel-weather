@@ -50,10 +50,9 @@ const handleUpdatedDates = (dateRange: string[]) => {
 
 <style scoped lang="scss">
 .container {
-  margin: 25px;
-  width: 100%;
   display: flex;
   flex-direction: row;
+  margin: 25px;
 
   @media only screen and (max-width: 600px) {
     flex-direction: column;
@@ -61,26 +60,26 @@ const handleUpdatedDates = (dateRange: string[]) => {
 }
 
 .left-side {
+  border-right: 2px solid #537e72;
   height: 70vh;
-  width: 30%;
-  border-right: 2px solid #535bf2;
+  max-width: 35vw;
   padding: 10px;
 
   @media only screen and (max-width: 600px) {
-    height: fit-content;
-    width: 90%;
-    border-bottom: 2px solid #535bf2;
+    border-bottom: 2px solid #537e72;
     border-right: none;
+    height: fit-content;
+    max-width: 80vw;
   }
 }
 
 .right-side {
   height: fit-content;
-  width: 70%;
+  margin-left: 10px;
+  min-width: 60vw;
   overflow-y: scroll;
 
   @media only screen and (max-width: 600px) {
-    width: 90%;
     height: fit-content;
   }
 }
