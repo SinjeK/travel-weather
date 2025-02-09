@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- TODO: Accessibility -->
     <div class="left-side">
       <h1 class="text">Hi!</h1>
       <p class="text">So you can't decide where to travel next? Why not check what the weather was like last year?</p>
