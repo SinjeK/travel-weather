@@ -17,7 +17,7 @@ import { ref, type Ref, watch } from "vue";
 
 // TODO: find an API for this instead of hardcoding the list
 const cities: TravelLocation[] = [
-    {
+  {
     name: 'Seville',
     lat: 37.39,
     lng: -5.99
@@ -56,7 +56,22 @@ const cities: TravelLocation[] = [
     name: 'Athens',
     lat: 37.98,
     lng: 23.72
-  } ]
+  },
+  {
+    name: 'Milan',
+    lat: 45.46,
+    lng: 9.18
+  },
+  {
+    name: 'Copenhagen',
+    lat: 55.67,
+    lng: 12.56
+  },
+  {
+    name: 'Vienna',
+    lat: 48.21,
+    lng: 16.36
+  }   ]
 const selectedCities: Ref<TravelLocation[]> = ref([])
 const emit = defineEmits([ 'updatedSelection' ])
 
